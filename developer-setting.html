@@ -3,92 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ডেভেলপার সেটিং</title>
+    <title>ডেভেলপার সেটিং | অ্যাডমিন প্যানেল</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        body { background-color: #f4f6f9; font-family: 'SolaimanLipi', sans-serif; }
-        .dev-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; position: relative; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .input-group label { font-size: 12px; font-weight: bold; color: #6b7280; margin-left: 4px; display: block; margin-top: 10px; }
-        .input-field { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 12px; outline: none; margin-top: 4px; transition: 0.3s; }
-        .input-field:focus { border-color: #5851db; ring: 2px; ring-color: #5851db; }
-        .plus-btn { position: fixed; bottom: 100px; right: 25px; background: #10b981; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); cursor: pointer; z-index: 100; }
-        .delete-icon { position: absolute; top: 15px; right: 15px; color: #ef4444; cursor: pointer; font-size: 18px; }
+        body { font-family: 'SolaimanLipi', sans-serif; background-color: #f8fafc; }
+        .input-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-weight: bold; color: #475569; margin-bottom: 5px; font-size: 14px; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; outline: none; transition: 0.3s; }
+        .input-group input:focus { border-color: #3b82f6; ring: 2px; ring-color: #bfdbfe; }
     </style>
 </head>
-<body class="pb-32">
+<body class="pb-10">
 
-    <header class="p-5 bg-white shadow-sm flex items-center justify-between sticky top-0 z-50">
-        <div class="flex items-center gap-4">
-            <a href="admin-index.html" class="text-gray-600"><i class="fas fa-arrow-left text-xl"></i></a>
-            <h2 class="font-black text-gray-800 text-lg uppercase">ওয়েবসাইট সেটিংস</h2>
-        </div>
-        <button onclick="window.location.href='admin-index.html'" class="text-gray-400"><i class="fas fa-times text-2xl"></i></button>
+    <header class="p-5 bg-white shadow-sm flex items-center gap-4 sticky top-0 z-50">
+        <a href="admin-index.html" class="text-gray-600 text-xl"><i class="fas fa-arrow-left"></i></a>
+        <h1 class="font-black text-xl text-gray-800 uppercase">Developer Setting</h1>
     </header>
 
-    <main class="p-5">
-        <h3 class="text-center font-bold text-gray-700 mb-6 text-xl">ডেভেলপার ম্যানেজমেন্ট</h3>
-        
-        <div id="dev-list">
+    <div class="max-w-md mx-auto mt-6 px-4">
+        <div class="input-card">
+            <div class="text-center mb-6">
+                <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-2 text-3xl shadow-inner">
+                    <i class="fas fa-user-code"></i>
+                </div>
+                <p class="text-gray-500 text-sm">ডেভেলপার প্রোফাইল আপডেট করুন</p>
             </div>
-    </main>
 
-    <div class="plus-btn" onclick="addDevCard()">
-        <i class="fas fa-plus"></i>
-    </div>
+            <div id="devForm">
+                <div class="input-group">
+                    <label><i class="fas fa-signature mr-2"></i>নাম</label>
+                    <input type="text" id="devName" placeholder="ডেভেলপারের নাম">
+                </div>
 
-    <div class="fixed bottom-0 left-0 right-0 p-5 bg-white border-t z-50">
-        <button onclick="saveDevData()" class="w-full bg-[#5851db] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-all">
-            <i class="fas fa-save"></i> সব আপডেট করুন
-        </button>
+                <div class="input-group">
+                    <label><i class="fas fa-briefcase mr-2"></i>পদবী</label>
+                    <input type="text" id="devDes" placeholder="উদা: Full Stack Developer">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fas fa-link mr-2"></i>প্রোফাইল ছবি (URL)</label>
+                    <input type="text" id="devImg" placeholder="ছবির সরাসরি লিঙ্ক">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fab fa-facebook mr-2"></i>ফেসবুক লিঙ্ক</label>
+                    <input type="text" id="devFB" placeholder="https://facebook.com/username">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fab fa-whatsapp mr-2"></i>হোয়াটসঅ্যাপ লিঙ্ক</label>
+                    <input type="text" id="devWA" placeholder="https://wa.me/8801xxx">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fab fa-github mr-2"></i>গিটহাব লিঙ্ক</label>
+                    <input type="text" id="devGH" placeholder="https://github.com/username">
+                </div>
+
+                <button onclick="saveDevSettings()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 active:scale-95 transition-all mt-4">
+                    <i class="fas fa-save mr-2"></i> তথ্য সেভ করুন
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
-        function addDevCard() {
-            const container = document.getElementById('dev-list');
-            const card = document.createElement('div');
-            card.className = "dev-card animate__animated animate__fadeIn";
+        // আপনার নতুন Web App URL এখানে বসান
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt24Fx-yTaTQCOD43UOeuVhVxTJ9ujBmCDeVJI_KcRFt9Oc82ZVix7ACo2i1ZD5pll1g/exec";
+
+        // পেজ লোড হওয়ার সময় বর্তমান ডেটা শিট থেকে নিয়ে আসা
+        window.onload = async function() {
+            Swal.fire({ title: 'ডেটা লোড হচ্ছে...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); }});
             
-            card.innerHTML = `
-                <div class="delete-icon" onclick="this.parentElement.remove()">
-                    <i class="fas fa-trash-alt"></i>
-                </div>
-                <div class="input-group">
-                    <label>ডেভেলপারের নাম</label>
-                    <input type="text" class="input-field" placeholder="নাম লিখুন">
-                    
-                    <label>টাইটেল (পদবী)</label>
-                    <input type="text" class="input-field" placeholder="যেমন: Full Stack Developer">
-                    
-                    <label>ছবি URL</label>
-                    <input type="text" class="input-field" placeholder="https://image-link.com">
-                    
-                    <label>ফেসবুক লিংক</label>
-                    <input type="text" class="input-field" placeholder="Facebook Profile Link">
-                    
-                    <label>হোয়াটসঅ্যাপ লিংক</label>
-                    <input type="text" class="input-field" placeholder="WhatsApp Chat Link">
-                    
-                    <label>গিটহাব লিংক</label>
-                    <input type="text" class="input-field" placeholder="GitHub Repository Link">
-                </div>
-            `;
-            container.appendChild(card);
-        }
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                const dev = data.developer;
 
-        function saveDevData() {
-            Swal.fire({
-                title: 'সংরক্ষণ হচ্ছে...',
-                didOpen: () => { Swal.showLoading(); }
-            });
-            setTimeout(() => {
-                Swal.fire('সফল!', 'সব ডেভেলপারের তথ্য আপডেট হয়েছে।', 'success');
-            }, 1500);
-        }
+                // ইনপুট বক্সে শিটের ডেটাগুলো বসানো
+                document.getElementById('devName').value = dev.name || "";
+                document.getElementById('devDes').value = dev.des || "";
+                document.getElementById('devImg').value = dev.img || "";
+                document.getElementById('devFB').value = dev.fb || "";
+                document.getElementById('devWA').value = dev.wa || "";
+                document.getElementById('devGH').value = dev.gh || "";
+                
+                Swal.close();
+            } catch (error) {
+                Swal.fire('এরর!', 'শিট থেকে ডেটা আনা সম্ভব হয়নি।', 'error');
+            }
+        };
 
-        // পেজ লোড হলে একটি কার্ড ডিফল্টভাবে দেখাবে
-        window.onload = addDevCard;
+        // ডেটা সেভ করার ফাংশন
+        async function saveDevSettings() {
+            const devData = {
+                action: "updateDev",
+                Name: document.getElementById('devName').value,
+                Designation: document.getElementById('devDes').value,
+                ImageURL: document.getElementById('devImg').value,
+                FB: document.getElementById('devFB').value,
+                WA: document.getElementById('devWA').value,
+                GH: document.getElementById('devGH').value
+            };
+
+            if(!devData.Name) {
+                Swal.fire('সতর্কতা', 'কমপক্ষে নাম প্রদান করুন', 'warning');
+                return;
+            }
+
+            Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); }});
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(devData)
+                });
+
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'সফলভাবে সেভ হয়েছে!',
+                        text: 'আপনার মূল ওয়েবসাইটের ডেভেলপার পেজে এটি আপডেট হয়ে যাবে।',
+                        confirmButtonColor: '#3085d6'
+                    });
+                }
+            } catch (error) {
+                Swal.fire('ব্যর্থ!', 'সার্ভারে কানেক্ট করা যাচ্ছে না। আবার চেষ্টা করুন।', 'error');
+            }
+        }
     </script>
 </body>
 </html>
