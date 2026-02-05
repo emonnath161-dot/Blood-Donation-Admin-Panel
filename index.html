@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Light Edition</title>
+    <title>Admin Dashboard | Light Theme</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap');
-        body { font-family: 'Hind Siliguri', sans-serif; background: #f8fafc; color: #1e293b; transition: all 0.3s; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: #f8fafc; color: #1e293b; overflow-x: hidden; }
         .hidden { display: none !important; }
-        .glass-card { background: white; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
-        .btn-hover:active { scale: 0.95; transition: 0.2s; }
+        .glass-card { background: white; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; transition: 0.3s; }
+        .btn-hover:active { transform: scale(0.95); }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -22,20 +24,14 @@
             <div class="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-12 shadow-lg shadow-blue-200">
                 <i class="fas fa-lock text-3xl text-white -rotate-12"></i>
             </div>
-            <h2 class="text-2xl font-bold mb-2 text-slate-800">অ্যাডমিন প্যানেল</h2>
-            <p class="text-sm text-slate-400 mb-8 font-medium italic">ম্যানেজমেন্টে প্রবেশ করতে পাসওয়ার্ড দিন</p>
-            
-            <input type="password" id="passInput" placeholder="পাসওয়ার্ড লিখুন" 
-                   class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-center outline-none focus:border-blue-500 mb-5 text-lg">
-            
-            <button onclick="checkAdminLogin()" 
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 btn-hover">
-                লগইন করুন
-            </button>
+            <h2 class="text-2xl font-bold mb-2 text-slate-800 uppercase tracking-tighter">Admin Login</h2>
+            <p class="text-sm text-slate-400 mb-8 font-medium">প্যানেলে প্রবেশ করতে পাসওয়ার্ড দিন</p>
+            <input type="password" id="passInput" placeholder="•••••" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-center outline-none focus:border-blue-500 mb-5 text-lg">
+            <button onclick="checkAdminLogin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 btn-hover">প্রবেশ করুন</button>
         </div>
     </div>
 
-    <div id="dashboard" class="hidden">
+    <div id="dashboard" class="hidden animate-fade-in">
         <header class="p-6 flex justify-between items-center sticky top-0 bg-white/80 backdrop-blur-md z-50 border-b border-slate-100">
             <div>
                 <h1 class="text-xl font-bold text-blue-600 uppercase tracking-tight">Admin Dashboard</h1>
@@ -51,11 +47,11 @@
                 <p class="text-[10px] font-bold text-slate-400 uppercase">Total</p>
                 <h3 id="totalD" class="text-xl font-black text-slate-700">0</h3>
             </div>
-            <div class="glass-card p-4 text-center border-orange-100">
+            <div class="glass-card p-4 text-center">
                 <p class="text-[10px] font-bold text-orange-400 uppercase">Pending</p>
                 <h3 id="pendingD" class="text-xl font-black text-orange-500">0</h3>
             </div>
-            <div class="glass-card p-4 text-center border-green-100">
+            <div class="glass-card p-4 text-center">
                 <p class="text-[10px] font-bold text-green-400 uppercase">Active</p>
                 <h3 id="activeD" class="text-xl font-black text-green-600">0</h3>
             </div>
@@ -65,35 +61,21 @@
             <button onclick="toggleSettings()" class="w-full bg-white border border-slate-200 p-5 rounded-[25px] flex justify-between items-center shadow-sm btn-hover">
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
-                        <i class="fas fa-cog animate-spin-slow"></i>
+                        <i class="fas fa-cog"></i>
                     </div>
                     <span class="font-bold text-slate-700">সবগুলো সেটিংস অপশন</span>
                 </div>
-                <i id="chevronIcon" class="fas fa-chevron-down text-slate-400"></i>
+                <i id="chevronIcon" class="fas fa-chevron-down text-slate-400 transition-transform"></i>
             </button>
 
             <div id="settingsMenu" class="hidden grid grid-cols-2 gap-3 mt-4 animate-fade-in">
-                <a href="logo-setting.html" class="glass-card p-6 text-center btn-hover">
-                    <i class="fas fa-image text-2xl text-blue-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Logo</p>
-                </a>
-                <a href="memory-setting.html" class="glass-card p-6 text-center btn-hover">
-                    <i class="fas fa-camera text-2xl text-purple-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Memory</p>
-                </a>
-                <a href="developer-setting.html" class="glass-card p-6 text-center btn-hover">
-                    <i class="fas fa-code text-2xl text-orange-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Developer</p>
-                </a>
-                <a href="contact-setting.html" class="glass-card p-6 text-center btn-hover">
-                    <i class="fas fa-phone-alt text-2xl text-red-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Contact</p>
-                </a>
-                <a href="group-setting.html" class="glass-card p-6 text-center btn-hover">
-                    <i class="fas fa-users text-2xl text-indigo-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Groups</p>
-                </a>
-                <a href="gallery-setting.html" class="glass-card p-6 text-center btn-hover">
-                    <i class="fas fa-images text-2xl text-green-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Gallery</p>
-                </a>
-                <a href="admin-setting.html" class="glass-card p-6 text-center btn-hover col-span-2">
-                    <i class="fas fa-user-shield text-2xl text-slate-500 mb-2"></i><p class="text-[12px] font-bold text-slate-600">Admin Profile Settings</p>
-                </a>
+                <a href="logo-setting.html" class="glass-card p-6 text-center btn-hover"><i class="fas fa-image text-2xl text-blue-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Logo</p></a>
+                <a href="memory-setting.html" class="glass-card p-6 text-center btn-hover"><i class="fas fa-camera text-2xl text-purple-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Memory</p></a>
+                <a href="developer-setting.html" class="glass-card p-6 text-center btn-hover"><i class="fas fa-code text-2xl text-orange-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Developer</p></a>
+                <a href="contact-setting.html" class="glass-card p-6 text-center btn-hover"><i class="fas fa-phone-alt text-2xl text-red-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Contact</p></a>
+                <a href="group-setting.html" class="glass-card p-6 text-center btn-hover"><i class="fas fa-users text-2xl text-indigo-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Groups</p></a>
+                <a href="gallery-setting.html" class="glass-card p-6 text-center btn-hover"><i class="fas fa-images text-2xl text-green-500 mb-2"></i><p class="text-[11px] font-bold text-slate-600">Gallery</p></a>
+                <a href="admin-setting.html" class="glass-card p-6 text-center btn-hover col-span-2"><i class="fas fa-user-shield text-2xl text-slate-500 mb-2"></i><p class="text-[12px] font-bold text-slate-600">Admin Profile Settings</p></a>
             </div>
         </div>
 
@@ -102,29 +84,26 @@
                 <span class="w-1.5 h-6 bg-red-500 rounded-full"></span> পেন্ডিং রিকুয়েস্ট
             </h2>
             <div id="requestContainer" class="space-y-4">
-                <p class="text-center text-slate-400 py-10 italic">ডাটা লোড হচ্ছে...</p>
+                <p class="text-center text-slate-400 py-10 italic">ডাটা চেক করা হচ্ছে...</p>
             </div>
         </div>
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbz_MLn2RpoWi6hRb7h1fVKmKsHXRCQ-LncQBwrlXBOXG_ar8v1errT2wHbGnfEkSc3w/exec";
-        const SECRET = "admin"; // আপনার পাসওয়ার্ড
+        // আপনার New Deployment লিঙ্কটি এখানে দিন
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbz_MLn2RpoWi6hRb7h1fVKmKsHXRCQ-LncQBwrlXBOXG_ar8v1errT2wHbGnfEkSc3w/exec"; 
+        const SECRET = "admin"; 
 
-        // ১. অটো লগইন চেক (পেজ লোড হওয়ার সময়)
         window.onload = function() {
-            if (sessionStorage.getItem("admin_auth") === "true") {
-                showDashboard();
-            }
+            if (sessionStorage.getItem("admin_auth") === "true") { showDashboard(); }
         };
 
         function checkAdminLogin() {
-            const inputVal = document.getElementById('passInput').value;
-            if (inputVal === SECRET) {
-                sessionStorage.setItem("admin_auth", "true"); // লগইন ডাটা সেভ রাখা
+            if (document.getElementById('passInput').value === SECRET) {
+                sessionStorage.setItem("admin_auth", "true");
                 showDashboard();
             } else {
-                Swal.fire({ icon: 'error', title: 'ভুল পাসওয়ার্ড!', background: '#fff', color: '#333' });
+                Swal.fire({ icon: 'error', title: 'ভুল পাসওয়ার্ড!' });
             }
         }
 
@@ -134,12 +113,8 @@
             fetchSheetData();
         }
 
-        function logout() {
-            sessionStorage.removeItem("admin_auth");
-            location.reload();
-        }
+        function logout() { sessionStorage.removeItem("admin_auth"); location.reload(); }
 
-        // ২. সেটিংস মেনু হাইড/শো
         function toggleSettings() {
             const menu = document.getElementById('settingsMenu');
             const icon = document.getElementById('chevronIcon');
@@ -147,34 +122,68 @@
             icon.classList.toggle('rotate-180');
         }
 
-        // ৩. গুগল শিট থেকে ডাটা আনা (আগের মতোই)
+        // শিট থেকে ডাটা রিড করা
         async function fetchSheetData() {
             try {
                 const response = await fetch(SCRIPT_URL);
                 const data = await response.json();
                 
-                document.getElementById('totalD').innerText = data.donors.length;
+                document.getElementById('totalD').innerText = (data.donors.length);
                 document.getElementById('pendingD').innerText = data.stats.pending;
                 document.getElementById('activeD').innerText = data.stats.total;
 
                 const container = document.getElementById('requestContainer');
                 container.innerHTML = "";
 
-                data.donors.filter(d => d.status === "Pending").forEach(donor => {
+                const pendingDonors = data.donors.filter(d => d.status === "Pending");
+
+                if(pendingDonors.length === 0) {
+                    container.innerHTML = `<p class="text-center text-slate-400 py-10">কোনো পেন্ডিং রিকোয়েস্ট নেই</p>`;
+                    return;
+                }
+
+                pendingDonors.forEach(donor => {
                     container.innerHTML += `
-                        <div class="glass-card p-5 flex justify-between items-center border-l-4 border-l-orange-400">
+                        <div class="glass-card p-5 flex justify-between items-center border-l-4 border-l-orange-400 animate-fade-in">
                             <div>
                                 <h4 class="font-bold text-slate-700">${donor.name}</h4>
-                                <p class="text-[11px] text-red-500 font-bold uppercase tracking-wider">${donor.group}</p>
+                                <p class="text-[12px] text-red-500 font-bold uppercase">${donor.group}</p>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="handleAction('${donor.phone}', 'approveDonor')" class="w-10 h-10 bg-green-50 text-green-600 rounded-xl border border-green-100 flex items-center justify-center btn-hover"><i class="fas fa-check"></i></button>
-                                <button onclick="handleAction('${donor.phone}', 'deleteDonor')" class="w-10 h-10 bg-red-50 text-red-500 rounded-xl border border-red-100 flex items-center justify-center btn-hover"><i class="fas fa-trash-alt"></i></button>
+                                <button onclick="handleAction('${donor.phone}', 'approveDonor')" class="w-10 h-10 bg-green-50 text-green-600 rounded-xl border border-green-100 flex items-center justify-center btn-hover shadow-sm">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button onclick="handleAction('${donor.phone}', 'deleteDonor')" class="w-10 h-10 bg-red-50 text-red-500 rounded-xl border border-red-100 flex items-center justify-center btn-hover shadow-sm">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </div>
                         </div>
                     `;
                 });
-            } catch (e) { console.log(e); }
+            } catch (e) { console.error(e); }
+        }
+
+        // টিক চিহ্ন ও ডিলিট বাটন ফাংশন
+        async function handleAction(phone, action) {
+            Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: action, phone: String(phone).trim() })
+                });
+
+                const result = await response.json();
+
+                if (result.status === "success") {
+                    Swal.fire({ icon: 'success', title: 'সফল!', timer: 1000, showConfirmButton: false });
+                    fetchSheetData(); // আপডেট হওয়ার পর লিস্ট রিফ্রেশ
+                } else {
+                    Swal.fire('ব্যর্থ!', 'গুগল শিটে ডাটা আপডেট হয়নি।', 'error');
+                }
+            } catch (error) {
+                Swal.fire('Error', 'সার্ভার কানেকশন ফেইল!', 'error');
+            }
         }
     </script>
 </body>
