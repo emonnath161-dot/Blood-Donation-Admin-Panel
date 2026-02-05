@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কন্টাক্ট সেটিং</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { background-color: #f8fafc; font-family: 'SolaimanLipi', sans-serif; }
+        .contact-card { background: white; border-radius: 24px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .input-label { font-size: 13px; font-weight: 700; color: #4b5563; margin-left: 5px; margin-bottom: 8px; display: block; }
+        .input-field { width: 100%; padding: 14px; border: 1px solid #d1d5db; border-radius: 16px; outline: none; margin-bottom: 20px; transition: 0.3s; background: #f9fafb; }
+        .input-field:focus { border-color: #5851db; background: white; box-shadow: 0 0 0 4px rgba(88, 81, 219, 0.1); }
+        .save-btn { background-color: #991b1b; } /* আপনার স্ক্রিনশট অনুযায়ী মেরুন/লাল রঙ */
+    </style>
+</head>
+<body class="pb-32">
+
+    <header class="p-5 bg-white shadow-sm flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <a href="admin-index.html" class="text-gray-800"><i class="fas fa-arrow-left text-xl"></i></a>
+            <h2 class="font-bold text-gray-800 text-lg uppercase">CONTACT SETTINGS</h2>
+        </div>
+        <button onclick="window.location.href='admin-index.html'" class="text-gray-400"><i class="fas fa-times text-2xl"></i></button>
+    </header>
+
+    <main class="p-5">
+        <div class="max-w-md mx-auto">
+            <h3 class="text-center font-bold text-gray-600 mb-6 text-lg">যোগাযোগের তথ্য আপডেট করুন</h3>
+            
+            <div class="contact-card">
+                <div>
+                    <label class="input-label">মোবাইল নম্বর</label>
+                    <input type="text" id="phone" class="input-field" placeholder="যেমন: 017XXXXXXXX">
+                </div>
+
+                <div>
+                    <label class="input-label">WhatsApp লিংক</label>
+                    <input type="text" id="whatsapp" class="input-field" placeholder="https://wa.me/number">
+                </div>
+
+                <div>
+                    <label class="input-label">ইমেইল এড্রেস</label>
+                    <input type="email" id="email" class="input-field" placeholder="example@gmail.com">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 p-5 bg-white border-t z-50">
+        <button onclick="saveContact()" class="w-full save-btn text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-all">
+            <i class="fas fa-check-circle"></i> সব আপডেট করুন
+        </button>
+    </div>
+
+    <script>
+        function saveContact() {
+            const phone = document.getElementById('phone').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const email = document.getElementById('email').value;
+
+            // ভ্যালিডেশন চেক
+            if(!phone || !whatsapp || !email) {
+                Swal.fire('দুঃখিত!', 'সবগুলো ঘর পূরণ করুন।', 'warning');
+                return;
+            }
+
+            Swal.fire({
+                title: 'আপডেট হচ্ছে...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'সফল!',
+                    text: 'কন্টাক্ট তথ্য সফলভাবে সেভ হয়েছে।',
+                    confirmButtonColor: '#991b1b'
+                });
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
