@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যাডমিন সেটিং</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { background-color: #f4f6f9; font-family: 'SolaimanLipi', sans-serif; }
+        .admin-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; position: relative; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .input-group label { font-size: 11px; font-weight: bold; color: #6b7280; margin-left: 4px; display: block; margin-top: 8px; text-transform: uppercase; }
+        .input-field { width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 12px; outline: none; margin-top: 4px; transition: 0.3s; font-size: 14px; }
+        .input-field:focus { border-color: #5851db; ring: 2px; ring-color: #5851db; background: #fff; }
+        .plus-btn { position: fixed; bottom: 100px; right: 25px; background: #10b981; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); cursor: pointer; z-index: 100; }
+        .delete-btn { position: absolute; top: 15px; right: 15px; color: #ef4444; cursor: pointer; font-size: 18px; transition: 0.2s; }
+        .delete-btn:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body class="pb-32">
+
+    <header class="p-5 bg-white shadow-sm flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <a href="admin-index.html" class="text-gray-800"><i class="fas fa-arrow-left text-xl"></i></a>
+            <h2 class="font-bold text-gray-800 text-lg uppercase">ADMIN SETTINGS</h2>
+        </div>
+        <button onclick="window.location.href='admin-index.html'" class="text-gray-400"><i class="fas fa-times text-2xl"></i></button>
+    </header>
+
+    <main class="p-5">
+        <h3 class="text-center font-bold text-gray-600 mb-6 text-lg">অ্যাডমিন ম্যানেজমেন্ট</h3>
+        
+        <div id="admin-list">
+            </div>
+    </main>
+
+    <div class="plus-btn" onclick="addAdminCard()">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 p-5 bg-white border-t z-50">
+        <button onclick="saveAdminData()" class="w-full bg-[#991b1b] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-all">
+            <i class="fas fa-save"></i> সব আপডেট করুন
+        </button>
+    </div>
+
+    <script>
+        function addAdminCard() {
+            const container = document.getElementById('admin-list');
+            const card = document.createElement('div');
+            card.className = "admin-card animate__animated animate__fadeInUp";
+            
+            card.innerHTML = `
+                <div class="delete-btn" onclick="this.parentElement.remove()">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+                <div class="grid grid-cols-1 gap-1">
+                    <label>অ্যাডমিন নাম</label>
+                    <input type="text" class="input-field" placeholder="নাম লিখুন">
+
+                    <label>অ্যাডমিন টাইটেল</label>
+                    <input type="text" class="input-field" placeholder="যেমন: ফাউন্ডার / মডারেটর">
+
+                    <label>ছবি URL</label>
+                    <input type="text" class="input-field" placeholder="https://image-link.com/admin.jpg">
+
+                    <label>মোবাইল নম্বর</label>
+                    <input type="text" class="input-field" placeholder="017XXXXXXXX">
+
+                    <label>লোকেশন (Location)</label>
+                    <input type="text" class="input-field" placeholder="শহর বা ঠিকানা">
+
+                    <div class="grid grid-cols-1 gap-2 mt-2 border-t pt-2">
+                        <label class="text-blue-600">সোশ্যাল লিংকসমূহ</label>
+                        <input type="text" class="input-field" placeholder="ফেসবুক লিংক">
+                        <input type="text" class="input-field" placeholder="টেলিগ্রাম লিংক">
+                        <input type="text" class="input-field" placeholder="WhatsApp লিংক">
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        }
+
+        function saveAdminData() {
+            Swal.fire({
+                title: 'তথ্য সংরক্ষিত হচ্ছে...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'সফল!',
+                    text: 'অ্যাডমিন তথ্য সফলভাবে আপডেট করা হয়েছে।',
+                    confirmButtonColor: '#991b1b'
+                });
+            }, 1500);
+        }
+
+        // শুরুতে একটি কার্ড ডিফল্টভাবে দেখানোর জন্য
+        window.onload = addAdminCard;
+    </script>
+</body>
+</html>
