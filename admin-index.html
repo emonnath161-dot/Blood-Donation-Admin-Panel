@@ -9,34 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body { font-family: 'SolaimanLipi', sans-serif; overflow-x: hidden; background-color: #0f172a; }
-        
-        /* ব্লাড ড্রপ অ্যানিমেশন */
-        .blood-drop {
-            position: absolute; top: -20px; width: 3px; height: 18px;
-            background: linear-gradient(to bottom, #ff0000, #800000);
-            border-radius: 50%; opacity: 0.6; animation: fall linear infinite;
-        }
+        .blood-drop { position: absolute; top: -20px; width: 3px; height: 18px; background: linear-gradient(to bottom, #ff0000, #800000); border-radius: 50%; opacity: 0.6; animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(110vh); } }
-
-        /* সেটিংস প্যানেল স্লাইড */
-        #settings-panel {
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        #settings-panel { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         #settings-panel.open { transform: translateX(0); }
-
-        /* ছোট মেনু কার্ড */
-        .small-menu-card {
-            padding: 10px 15px; background: #f8fafc; border-radius: 15px;
-            display: flex; align-items: center; gap: 12px; border: 1px solid #e2e8f0;
-            transition: 0.2s; font-size: 14px;
-        }
-
-        /* এপ্রুভাল লিস্ট স্টাইল */
-        .approval-item {
-            background: white; border-radius: 20px; padding: 15px;
-            margin-bottom: 10px; border: 1px solid #f1f5f9;
-        }
+        .small-menu-card { padding: 10px 15px; background: #f8fafc; border-radius: 15px; display: flex; align-items: center; gap: 12px; border: 1px solid #e2e8f0; transition: 0.2s; font-size: 14px; cursor: pointer; }
+        .approval-item { background: white; border-radius: 20px; padding: 15px; margin-bottom: 10px; border: 1px solid #f1f5f9; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
     </style>
 </head>
 <body>
@@ -48,7 +26,7 @@
                 <i class="fas fa-key text-white text-2xl"></i>
             </div>
             <h2 class="text-xl font-bold text-white uppercase tracking-widest mb-6">Admin Login</h2>
-            <input type="password" id="passInput" class="w-full p-4 bg-gray-800/50 border border-gray-700 rounded-2xl text-white text-center outline-none focus:ring-2 ring-red-600 mb-4" placeholder="পাসওয়ার্ড দিন">
+            <input type="password" id="passInput" class="w-full p-4 bg-gray-800/50 border border-gray-700 rounded-2xl text-white text-center outline-none focus:ring-2 ring-red-600 mb-4" placeholder="পাসওয়ার্ড: admin123">
             <button onclick="checkLogin()" class="w-full bg-red-600 text-white py-4 rounded-2xl font-bold active:scale-95 transition-all">প্রবেশ করুন</button>
         </div>
     </div>
@@ -56,45 +34,27 @@
     <div id="main-content" class="hidden min-h-screen bg-[#f8fafc]">
         <header class="p-5 bg-white shadow-sm flex items-center justify-between sticky top-0 z-40">
             <h1 class="font-black text-xl text-gray-800">CONTROL CENTER</h1>
-            <button onclick="location.reload()" class="bg-red-50 text-red-500 px-3 py-1.5 rounded-lg font-bold text-xs">LOGOUT</button>
+            <button onclick="location.reload()" class="bg-red-50 text-red-500 px-3 py-1.5 rounded-lg font-bold text-xs uppercase">Logout</button>
         </header>
 
         <main class="p-5 pb-32">
             <div class="grid grid-cols-2 gap-4 mb-6">
                 <div class="bg-white p-5 rounded-[25px] border-l-4 border-blue-500 shadow-sm text-center">
-                    <p class="text-gray-400 text-xs font-bold uppercase">মোট ডোনার</p>
-                    <h3 class="text-3xl font-black text-gray-800 mt-1">৪৫</h3>
+                    <p class="text-gray-400 text-xs font-bold uppercase tracking-wider">মোট ডোনার</p>
+                    <h3 id="totalActiveCount" class="text-3xl font-black text-gray-800 mt-1">০</h3>
                 </div>
-                <div class="bg-white p-5 rounded-[25px] border-l-4 border-green-500 shadow-sm text-center">
-                    <p class="text-gray-400 text-xs font-bold uppercase">পেন্ডিং</p>
-                    <h3 class="text-3xl font-black text-gray-800 mt-1">০৫</h3>
+                <div class="bg-white p-5 rounded-[25px] border-l-4 border-orange-500 shadow-sm text-center">
+                    <p class="text-gray-400 text-xs font-bold uppercase tracking-wider">পেন্ডিং</p>
+                    <h3 id="totalPendingCount" class="text-3xl font-black text-gray-800 mt-1 text-orange-600">০</h3>
                 </div>
             </div>
 
-            <h2 class="text-gray-500 font-bold text-sm mb-4 ml-1 uppercase tracking-wider">এপ্রুভাল লিস্ট (নতুন রিকোয়েস্ট)</h2>
-            <div class="space-y-3">
-                <div class="approval-item flex items-center justify-between shadow-sm">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500"><i class="fas fa-user"></i></div>
-                        <div>
-                            <p class="font-bold text-gray-800 text-sm">করিম আহমেদ</p>
-                            <p class="text-[10px] text-gray-400">রক্তের গ্রুপ: O+</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="bg-green-500 text-white p-2 rounded-lg text-xs px-3">Approve</button>
-                        <button class="bg-red-100 text-red-500 p-2 rounded-lg text-xs"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-                </div>
-
-            <div class="fixed bottom-8 left-5 right-24 z-40">
-                <button class="w-full bg-[#5851db] text-white py-4 rounded-2xl font-bold shadow-xl flex items-center justify-center gap-2 active:scale-95 transition-all">
-                    <i class="fas fa-save"></i> সব তথ্য সেভ করুন
-                </button>
+            <h2 class="text-gray-500 font-bold text-sm mb-4 ml-1 uppercase tracking-wider">পেন্ডিং ডোনার লিস্ট</h2>
+            <div id="approvalList" class="space-y-3">
+                <p class="text-gray-400 text-center text-sm italic py-10">ডেটা লোড হচ্ছে...</p>
             </div>
 
-            <button onclick="toggleSettings()" class="fixed bottom-8 right-5 w-14 h-14 bg-gray-400 text-white rounded-2xl shadow-xl flex items-center justify-center text-2xl z-50 transition-all active:rotate-90">
+            <button onclick="toggleSettings()" class="fixed bottom-8 right-5 w-14 h-14 bg-gray-600 text-white rounded-2xl shadow-xl flex items-center justify-center text-2xl z-50 transition-all active:rotate-90">
                 <i class="fas fa-cog"></i>
             </button>
         </main>
@@ -104,35 +64,25 @@
         <div onclick="toggleSettings()" class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
         <div class="w-72 bg-white h-full shadow-2xl p-5 relative z-50 overflow-y-auto">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="font-black text-gray-800 text-md uppercase tracking-tighter">Settings Menu</h2>
+                <h2 class="font-black text-gray-800 text-md uppercase">Settings Menu</h2>
                 <button onclick="toggleSettings()" class="text-gray-400"><i class="fas fa-times text-xl"></i></button>
             </div>
-            
             <div class="space-y-2">
-                <a href="logo-setting.html" class="small-menu-card hover:bg-blue-50">
-                    <i class="fas fa-image text-blue-500 w-5"></i> <span>১. লোগো পরিবর্তন</span>
-                </a>
-                <a href="memory-setting.html" class="small-menu-card hover:bg-purple-50">
-                    <i class="fas fa-camera text-purple-500 w-5"></i> <span>২. স্মৃতিময় চিত্র</span>
-                </a>
-                <a href="developer-setting.html" class="small-menu-card hover:bg-green-50">
-                    <i class="fas fa-code text-green-500 w-5"></i> <span>৩. ডেভেলপার সেটিং</span>
-                </a>
-                <a href="contact-setting.html" class="small-menu-card hover:bg-red-50">
-                    <i class="fas fa-phone text-red-500 w-5"></i> <span>৪. কন্টাক্ট সেটিং</span>
-                </a>
-                <a href="group-setting.html" class="small-menu-card hover:bg-indigo-50">
-                    <i class="fas fa-users text-indigo-500 w-5"></i> <span>৫. গ্রুপ সেটিং</span>
-                </a>
-                <a href="admin-setting.html" class="small-menu-card hover:bg-orange-50">
-                    <i class="fas fa-user-shield text-orange-500 w-5"></i> <span>৭. অ্যাডমিন সেটিং</span>
-                </a>
+                <a href="logo-setting.html" class="small-menu-card hover:bg-blue-50"><i class="fas fa-image text-blue-500 w-5"></i> ১. লোগো পরিবর্তন</a>
+                <a href="memory-setting.html" class="small-menu-card hover:bg-purple-50"><i class="fas fa-camera text-purple-500 w-5"></i> ২. স্মৃতিময় চিত্র</a>
+                <a href="developer-setting.html" class="small-menu-card hover:bg-green-50"><i class="fas fa-code text-green-500 w-5"></i> ৩. ডেভেলপার সেটিং</a>
+                <a href="contact-setting.html" class="small-menu-card hover:bg-red-50"><i class="fas fa-phone text-red-500 w-5"></i> ৪. কন্টাক্ট সেটিং</a>
+                <a href="group-setting.html" class="small-menu-card hover:bg-indigo-50"><i class="fas fa-users text-indigo-500 w-5"></i> ৫. গ্রুপ সেটিং</a>
+                <a href="admin-setting.html" class="small-menu-card hover:bg-orange-50"><i class="fas fa-user-shield text-orange-500 w-5"></i> ৭. অ্যাডমিন সেটিং</a>
             </div>
         </div>
     </div>
 
     <script>
-        // ব্লাড ড্রপ অ্যানিমেশন
+        // আপনার কপি করা Apps Script URL এখানে বসান
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwrkCX5IwrXpDtQXG80m1wPPTkvIXZgStWZbt6-Ah6VTLlUQskEsjmjoygI-ZWLNpMucg/exec";
+
+        // ১. ব্লাড ড্রপ অ্যানিমেশন
         function createDrops() {
             const container = document.getElementById('drop-container');
             for(let i=0; i<25; i++) {
@@ -145,20 +95,75 @@
         }
         createDrops();
 
+        // ২. লগইন ফাংশন
         function checkLogin() {
             const pass = document.getElementById('passInput').value;
             if(pass === "admin123") {
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-content').classList.remove('hidden');
-                Swal.fire({ icon: 'success', title: 'লগইন সফল!', timer: 800, showConfirmButton: false });
+                fetchData(); // লগইন সফল হলে ডেটা লোড শুরু হবে
             } else {
                 Swal.fire({ icon: 'error', title: 'ভুল পাসওয়ার্ড!' });
             }
         }
 
-        function toggleSettings() {
-            document.getElementById('settings-panel').classList.toggle('open');
+        // ৩. শিট থেকে ডেটা লোড করা
+        async function fetchData() {
+            try {
+                const response = await fetch(SCRIPT_URL + "?action=readDonors");
+                const data = await response.json();
+                
+                document.getElementById('totalActiveCount').innerText = data.totalDonors;
+                document.getElementById('totalPendingCount').innerText = data.pendingDonors;
+
+                const listDiv = document.getElementById('approvalList');
+                listDiv.innerHTML = "";
+
+                const pendingList = data.donors.filter(d => d.status === "Pending");
+
+                if(pendingList.length === 0) {
+                    listDiv.innerHTML = `<p class="text-gray-400 text-center py-5">কোনো পেন্ডিং আবেদন নেই।</p>`;
+                    return;
+                }
+
+                pendingList.forEach(donor => {
+                    listDiv.innerHTML += `
+                        <div class="approval-item flex items-center justify-between">
+                            <div>
+                                <p class="font-bold text-gray-800 text-sm">${donor.name}</p>
+                                <p class="text-[10px] text-red-500 font-bold">গ্রুপ: ${donor.bloodGroup} | ${donor.phone}</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="updateStatus('${donor.phone}', 'approveDonor')" class="bg-green-500 text-white px-3 py-2 rounded-xl text-xs font-bold">Approve</button>
+                                <button onclick="updateStatus('${donor.phone}', 'deleteDonor')" class="bg-red-100 text-red-500 p-2 rounded-xl"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>`;
+                });
+            } catch (error) {
+                console.error("ডেটা লোড করতে সমস্যা হয়েছে।");
+            }
         }
+
+        // ৪. এপ্রুভ বা ডিলিট করার ফাংশন
+        async function updateStatus(phone, action) {
+            Swal.fire({ title: 'প্রসেস হচ্ছে...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); }});
+            
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: action, Phone: phone })
+                });
+                
+                if(response.ok) {
+                    Swal.fire('সফল!', action === 'approveDonor' ? 'ডোনার এপ্রুভ হয়েছে।' : 'ডোনার ডিলিট হয়েছে।', 'success');
+                    fetchData(); // লিস্ট আপডেট করুন
+                }
+            } catch (e) {
+                Swal.fire('এরর!', 'সার্ভারে সমস্যা হয়েছে।', 'error');
+            }
+        }
+
+        function toggleSettings() { document.getElementById('settings-panel').classList.toggle('open'); }
     </script>
 </body>
 </html>
