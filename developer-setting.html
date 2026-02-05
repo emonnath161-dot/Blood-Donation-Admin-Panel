@@ -3,135 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ডেভেলপার সেটিং | অ্যাডমিন প্যানেল</title>
+    <title>Developer Setting | Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        body { font-family: 'SolaimanLipi', sans-serif; background-color: #f8fafc; }
-        .input-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-weight: bold; color: #475569; margin-bottom: 5px; font-size: 14px; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; outline: none; transition: 0.3s; }
-        .input-group input:focus { border-color: #3b82f6; ring: 2px; ring-color: #bfdbfe; }
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap');
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .glass-card { background: white; border-radius: 40px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .input-group { background: #f1f5f9; border-radius: 20px; padding: 12px 18px; border: 1.5px solid transparent; transition: 0.3s; }
+        .input-group:focus-within { border-color: #3b82f6; background: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+        .input-group input { background: transparent; border: none; outline: none; width: 100%; font-size: 14px; color: #334155; }
     </style>
 </head>
 <body class="pb-10">
 
-    <header class="p-5 bg-white shadow-sm flex items-center gap-4 sticky top-0 z-50">
-        <a href="admin-index.html" class="text-gray-600 text-xl"><i class="fas fa-arrow-left"></i></a>
-        <h1 class="font-black text-xl text-gray-800 uppercase">Developer Setting</h1>
+    <header class="p-6 bg-white flex items-center gap-4 sticky top-0 z-50 border-b border-slate-100">
+        <a href="index.html" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 active:scale-90 transition-all">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="text-xl font-bold text-slate-800 uppercase tracking-tight">Developer Setting</h1>
     </header>
 
-    <div class="max-w-md mx-auto mt-6 px-4">
-        <div class="input-card">
-            <div class="text-center mb-6">
-                <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-2 text-3xl shadow-inner">
-                    <i class="fas fa-user-code"></i>
-                </div>
-                <p class="text-gray-500 text-sm">ডেভেলপার প্রোফাইল আপডেট করুন</p>
+    <div class="max-w-md mx-auto p-6">
+        <div class="glass-card p-8">
+            <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-500 shadow-inner relative">
+                <i class="fas fa-user-code text-4xl"></i>
+                <div class="absolute bottom-0 right-1 w-6 h-6 bg-green-500 border-4 border-white rounded-full"></div>
             </div>
 
-            <div id="devForm">
-                <div class="input-group">
-                    <label><i class="fas fa-signature mr-2"></i>নাম</label>
+            <h2 class="text-xl font-bold text-center text-slate-700 mb-8">ডেভেলপার প্রোফাইল আপডেট</h2>
+
+            <div class="space-y-5">
+                <div class="input-group flex items-center gap-3">
+                    <i class="fas fa-user text-slate-400"></i>
                     <input type="text" id="devName" placeholder="ডেভেলপারের নাম">
                 </div>
 
-                <div class="input-group">
-                    <label><i class="fas fa-briefcase mr-2"></i>পদবী</label>
-                    <input type="text" id="devDes" placeholder="উদা: Full Stack Developer">
+                <div class="input-group flex items-center gap-3">
+                    <i class="fas fa-link text-slate-400"></i>
+                    <input type="text" id="devImg" placeholder="প্রোফাইল ছবি (URL)">
                 </div>
 
-                <div class="input-group">
-                    <label><i class="fas fa-link mr-2"></i>প্রোফাইল ছবি (URL)</label>
-                    <input type="text" id="devImg" placeholder="ছবির সরাসরি লিঙ্ক">
+                <div class="input-group flex items-center gap-3">
+                    <i class="fab fa-facebook text-blue-600"></i>
+                    <input type="text" id="devFb" placeholder="https://facebook.com/username">
                 </div>
 
-                <div class="input-group">
-                    <label><i class="fab fa-facebook mr-2"></i>ফেসবুক লিঙ্ক</label>
-                    <input type="text" id="devFB" placeholder="https://facebook.com/username">
+                <div class="input-group flex items-center gap-3">
+                    <i class="fab fa-whatsapp text-green-500"></i>
+                    <input type="text" id="devWa" placeholder="https://wa.me/8801xxx">
                 </div>
-
-                <div class="input-group">
-                    <label><i class="fab fa-whatsapp mr-2"></i>হোয়াটসঅ্যাপ লিঙ্ক</label>
-                    <input type="text" id="devWA" placeholder="https://wa.me/8801xxx">
-                </div>
-
-                <div class="input-group">
-                    <label><i class="fab fa-github mr-2"></i>গিটহাব লিঙ্ক</label>
-                    <input type="text" id="devGH" placeholder="https://github.com/username">
-                </div>
-
-                <button onclick="saveDevSettings()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 active:scale-95 transition-all mt-4">
-                    <i class="fas fa-save mr-2"></i> তথ্য সেভ করুন
-                </button>
             </div>
+
+            <button onclick="updateDeveloper()" class="w-full bg-slate-800 text-white py-5 rounded-[25px] font-bold mt-10 shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-sync-alt"></i> প্রোফাইল আপডেট করুন
+            </button>
         </div>
     </div>
 
     <script>
-        // আপনার নতুন Web App URL এখানে বসান
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt24Fx-yTaTQCOD43UOeuVhVxTJ9ujBmCDeVJI_KcRFt9Oc82ZVix7ACo2i1ZD5pll1g/exec";
+        // আপনার গুগল অ্যাপ স্ক্রিপ্ট লিঙ্ক এখানে বসান
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt24Fx-yTaTQCOD43UOeuVhVxTJ9ujBmCDeVJI_KcRFt9Oc82ZVix7ACo2i1ZD5pll1g/exec"; 
 
-        // পেজ লোড হওয়ার সময় বর্তমান ডেটা শিট থেকে নিয়ে আসা
-        window.onload = async function() {
-            Swal.fire({ title: 'ডেটা লোড হচ্ছে...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); }});
-            
+        // পেজ লোড হওয়ার সময় ডেটা আনা (Loading নোটিফিকেশন ফিক্সড করা হয়েছে)
+        window.onload = async () => {
+            // লোডিং দেখাবে কিন্তু ইনপুট ব্লক করবে না
+            const toast = Swal.mixin({ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000 });
+            toast.fire({ icon: 'info', title: 'ডেটা লোড হচ্ছে...' });
+
             try {
-                const response = await fetch(SCRIPT_URL);
+                const response = await fetch(SCRIPT_URL + "?action=getDeveloper");
                 const data = await response.json();
-                const dev = data.developer;
-
-                // ইনপুট বক্সে শিটের ডেটাগুলো বসানো
-                document.getElementById('devName').value = dev.name || "";
-                document.getElementById('devDes').value = dev.des || "";
-                document.getElementById('devImg').value = dev.img || "";
-                document.getElementById('devFB').value = dev.fb || "";
-                document.getElementById('devWA').value = dev.wa || "";
-                document.getElementById('devGH').value = dev.gh || "";
                 
-                Swal.close();
+                if(data) {
+                    document.getElementById('devName').value = data.name || "";
+                    document.getElementById('devImg').value = data.image || "";
+                    document.getElementById('devFb').value = data.fb || "";
+                    document.getElementById('devWa').value = data.wa || "";
+                }
             } catch (error) {
-                Swal.fire('এরর!', 'শিট থেকে ডেটা আনা সম্ভব হয়নি।', 'error');
+                console.log("Error loading data");
             }
         };
 
-        // ডেটা সেভ করার ফাংশন
-        async function saveDevSettings() {
-            const devData = {
-                action: "updateDev",
-                Name: document.getElementById('devName').value,
-                Designation: document.getElementById('devDes').value,
-                ImageURL: document.getElementById('devImg').value,
-                FB: document.getElementById('devFB').value,
-                WA: document.getElementById('devWA').value,
-                GH: document.getElementById('devGH').value
-            };
+        async function updateDeveloper() {
+            const name = document.getElementById('devName').value;
+            const img = document.getElementById('devImg').value;
+            const fb = document.getElementById('devFb').value;
+            const wa = document.getElementById('devWa').value;
 
-            if(!devData.Name) {
-                Swal.fire('সতর্কতা', 'কমপক্ষে নাম প্রদান করুন', 'warning');
+            if (!name) {
+                Swal.fire('ভুল', 'দয়া করে নাম লিখুন!', 'error');
                 return;
             }
 
-            Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); }});
+            Swal.fire({ title: 'সেভ হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
 
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify(devData)
+                    body: JSON.stringify({
+                        action: 'updateDeveloper',
+                        name: name,
+                        image: img,
+                        fb: fb,
+                        wa: wa
+                    })
                 });
 
                 if (response.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'সফলভাবে সেভ হয়েছে!',
-                        text: 'আপনার মূল ওয়েবসাইটের ডেভেলপার পেজে এটি আপডেট হয়ে যাবে।',
-                        confirmButtonColor: '#3085d6'
-                    });
+                    Swal.fire('সফল!', 'ডেভেলপার তথ্য আপডেট হয়েছে।', 'success');
                 }
             } catch (error) {
-                Swal.fire('ব্যর্থ!', 'সার্ভারে কানেক্ট করা যাচ্ছে না। আবার চেষ্টা করুন।', 'error');
+                Swal.fire('ব্যর্থ!', 'সার্ভারে কানেক্ট করা যাচ্ছে না।', 'error');
             }
         }
     </script>
