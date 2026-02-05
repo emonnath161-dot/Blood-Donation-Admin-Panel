@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গ্রুপ সেটিং</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { background-color: #f8fafc; font-family: 'SolaimanLipi', sans-serif; }
+        .group-card { background: white; border-radius: 24px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .input-label { font-size: 13px; font-weight: 700; color: #4b5563; margin-left: 5px; margin-bottom: 8px; display: block; }
+        .input-field { width: 100%; padding: 14px; border: 1px solid #d1d5db; border-radius: 16px; outline: none; margin-bottom: 20px; transition: 0.3s; background: #f9fafb; }
+        .input-field:focus { border-color: #991b1b; background: white; box-shadow: 0 0 0 4px rgba(153, 27, 27, 0.1); }
+        .save-btn { background-color: #991b1b; } /* আপনার কন্টাক্ট পেজের সাথে মিল রেখে মেরুন রঙ */
+    </style>
+</head>
+<body class="pb-32">
+
+    <header class="p-5 bg-white shadow-sm flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <a href="admin-index.html" class="text-gray-800"><i class="fas fa-arrow-left text-xl"></i></a>
+            <h2 class="font-bold text-gray-800 text-lg uppercase">GROUP SETTINGS</h2>
+        </div>
+        <button onclick="window.location.href='admin-index.html'" class="text-gray-400"><i class="fas fa-times text-2xl"></i></button>
+    </header>
+
+    <main class="p-5">
+        <div class="max-w-md mx-auto">
+            <h3 class="text-center font-bold text-gray-600 mb-6 text-lg">সোশ্যাল গ্রুপ লিংক আপডেট করুন</h3>
+            
+            <div class="group-card">
+                <div>
+                    <label class="input-label"><i class="fab fa-facebook text-blue-600 mr-1"></i> ফেসবুক গ্রুপ লিংক</label>
+                    <input type="text" id="fbGroup" class="input-field" placeholder="https://facebook.com/groups/example">
+                </div>
+
+                <div>
+                    <label class="input-label"><i class="fab fa-facebook-messenger text-blue-500 mr-1"></i> মেসেঞ্জার গ্রুপ লিংক</label>
+                    <input type="text" id="messengerGroup" class="input-field" placeholder="https://m.me/j/example">
+                </div>
+
+                <div>
+                    <label class="input-label"><i class="fab fa-whatsapp text-green-500 mr-1"></i> হোয়াটসঅ্যাপ গ্রুপ লিংক</label>
+                    <input type="text" id="waGroup" class="input-field" placeholder="https://chat.whatsapp.com/example">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 p-5 bg-white border-t z-50">
+        <button onclick="saveGroups()" class="w-full save-btn text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-all">
+            <i class="fas fa-sync-alt"></i> সব আপডেট করুন
+        </button>
+    </div>
+
+    <script>
+        function saveGroups() {
+            const fb = document.getElementById('fbGroup').value;
+            const messenger = document.getElementById('messengerGroup').value;
+            const wa = document.getElementById('waGroup').value;
+
+            if(!fb || !messenger || !wa) {
+                Swal.fire('সতর্কতা!', 'দয়া করে সবগুলো লিংক প্রদান করুন।', 'warning');
+                return;
+            }
+
+            Swal.fire({
+                title: 'লিংকগুলো আপডেট হচ্ছে...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'সফল!',
+                    text: 'সবগুলো গ্রুপ লিংক আপডেট হয়েছে।',
+                    confirmButtonColor: '#991b1b'
+                });
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
