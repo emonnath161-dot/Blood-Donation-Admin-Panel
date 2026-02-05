@@ -3,83 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>অ্যাডমিন প্রোফাইল সেটিং</title>
+    <title>Admin Profile Settings</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>body { font-family: 'SolaimanLipi', sans-serif; background-color: #f1f5f9; }</style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f3f6ff; }
+        .glass-card { background: white; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .input-field { background: #f9faff; border: 1.5px solid #eee; border-radius: 20px; padding: 12px 20px; width: 100%; outline: none; transition: 0.3s; font-size: 14px; }
+        .input-field:focus { border-color: #1e293b; background: white; }
+    </style>
 </head>
-<body class="pb-10">
-    <header class="p-5 bg-white shadow-sm flex items-center gap-4 sticky top-0 z-50">
-        <a href="admin-index.html" class="text-gray-600 text-xl"><i class="fas fa-arrow-left"></i></a>
-        <h1 class="font-black text-xl text-gray-800">ADMIN PROFILE</h1>
+<body class="pb-20">
+
+    <header class="p-6 bg-white flex items-center gap-4 sticky top-0 z-50 border-b border-slate-100">
+        <a href="index.html" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 active:scale-90 transition-all">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="text-xl font-bold text-slate-800 uppercase tracking-tight">Admin Profile</h1>
     </header>
 
-    <div class="max-w-md mx-auto mt-6 px-4">
-        <div class="bg-white p-6 rounded-[35px] shadow-xl shadow-slate-200">
-            <div class="text-center mb-6">
-                <div class="w-24 h-24 bg-gradient-to-tr from-slate-800 to-slate-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg border-4 border-white">
-                    <i class="fas fa-user-shield text-white text-4xl"></i>
-                </div>
-                <h2 class="font-bold text-gray-700">অ্যাডমিন প্রোফাইল তথ্য</h2>
+    <div class="max-w-md mx-auto p-6">
+        <div class="text-center mb-8">
+            <div class="w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-white shadow-xl">
+                <i class="fas fa-user-shield text-4xl"></i>
             </div>
+            <h2 class="text-xl font-bold text-slate-700">অ্যাডমিন প্রোফাইল তথ্য</h2>
+        </div>
 
-            <div class="space-y-4">
-                <input type="text" id="admName" placeholder="অ্যাডমিনের নাম" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-slate-800">
-                <input type="text" id="admDes" placeholder="পদবি" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-slate-800">
-                <input type="text" id="admAddr" placeholder="ঠিকানা" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-slate-800">
-                <input type="text" id="admImg" placeholder="প্রোফাইল ছবি URL" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-slate-800">
-                <input type="text" id="admMob" placeholder="মোবাইল নাম্বার" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-slate-800">
-                <input type="text" id="admFB" placeholder="ফেসবুক লিঙ্ক" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-slate-800">
-                <input type="text" id="admWA" placeholder="হোয়াটসঅ্যাপ লিঙ্ক" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-slate-800">
-                <input type="text" id="admTG" placeholder="টেলিগ্রাম লিঙ্ক" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-slate-800">
-
-                <button onclick="saveAdminProfile()" class="w-full bg-slate-800 text-white py-4 rounded-2xl font-bold active:scale-95 transition-all mt-4">
-                    প্রোফাইল সেভ করুন
+        <div id="adminContainer" class="space-y-8">
+            <div class="glass-card p-8 relative border border-transparent hover:border-slate-200 transition-all">
+                <button onclick="removeAdmin(this)" class="absolute top-6 right-6 text-red-400 hover:text-red-600">
+                    <i class="fas fa-trash-alt"></i>
                 </button>
+                <div class="space-y-4">
+                    <input type="text" placeholder="অ্যাডমিনের নাম" class="input-field admin-name">
+                    <input type="text" placeholder="পদবি" class="input-field admin-role">
+                    <input type="text" placeholder="ঠিকানা" class="input-field admin-address">
+                    <input type="text" placeholder="প্রোফাইল ছবি URL" class="input-field admin-img">
+                    <input type="text" placeholder="মোবাইল নাম্বার" class="input-field admin-phone">
+                    <input type="text" placeholder="ফেসবুক লিঙ্ক" class="input-field admin-fb">
+                </div>
             </div>
         </div>
+
+        <button onclick="addNewAdmin()" class="w-full bg-blue-500 text-white py-4 rounded-3xl font-bold mt-8 shadow-lg shadow-blue-100 active:scale-95 transition-all flex items-center justify-center gap-2">
+            <i class="fas fa-plus-circle text-xl"></i> নতুন অ্যাডমিন যুক্ত করুন
+        </button>
+
+        <button onclick="saveAdminData()" class="w-full bg-[#1e293b] text-white py-5 rounded-[30px] font-bold mt-6 shadow-2xl active:scale-95 transition-all text-lg tracking-widest uppercase">
+            প্রোফাইল আপডেট করুন
+        </button>
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt24Fx-yTaTQCOD43UOeuVhVxTJ9ujBmCDeVJI_KcRFt9Oc82ZVix7ACo2i1ZD5pll1g/exec";
+        // আপনার গুগল অ্যাপ স্ক্রিপ্ট লিঙ্ক এখানে বসান
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt24Fx-yTaTQCOD43UOeuVhVxTJ9ujBmCDeVJI_KcRFt9Oc82ZVix7ACo2i1ZD5pll1g/exec"; 
 
-        window.onload = async function() {
+        // ১. নতুন অ্যাডমিন ইনপুট সেট যুক্ত করা
+        function addNewAdmin() {
+            const container = document.getElementById('adminContainer');
+            const newAdmin = document.createElement('div');
+            newAdmin.className = "glass-card p-8 relative border border-transparent hover:border-slate-200 transition-all animate-slide-up";
+            newAdmin.innerHTML = `
+                <button onclick="removeAdmin(this)" class="absolute top-6 right-6 text-red-400 hover:text-red-600">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <div class="space-y-4">
+                    <input type="text" placeholder="অ্যাডমিনের নাম" class="input-field admin-name">
+                    <input type="text" placeholder="পদবি" class="input-field admin-role">
+                    <input type="text" placeholder="ঠিকানা" class="input-field admin-address">
+                    <input type="text" placeholder="প্রোফাইল ছবি URL" class="input-field admin-img">
+                    <input type="text" placeholder="মোবাইল নাম্বার" class="input-field admin-phone">
+                    <input type="text" placeholder="ফেসবুক লিঙ্ক" class="input-field admin-fb">
+                </div>
+            `;
+            container.appendChild(newAdmin);
+        }
+
+        // ২. অ্যাডমিন সেট ডিলিট করা
+        function removeAdmin(btn) {
+            const admins = document.querySelectorAll('.glass-card');
+            if (admins.length > 1) {
+                btn.closest('.glass-card').remove();
+            } else {
+                Swal.fire('সতর্কতা', 'কমপক্ষে একজন অ্যাডমিন থাকা আবশ্যক!', 'warning');
+            }
+        }
+
+        // ৩. ডেটা সেভ করা
+        async function saveAdminData() {
+            const names = document.querySelectorAll('.admin-name');
+            const roles = document.querySelectorAll('.admin-role');
+            const addresses = document.querySelectorAll('.admin-address');
+            const images = document.querySelectorAll('.admin-img');
+            const phones = document.querySelectorAll('.admin-phone');
+            const fbs = document.querySelectorAll('.admin-fb');
+
+            let adminData = [];
+
+            names.forEach((name, index) => {
+                if (name.value) {
+                    adminData.push({
+                        name: name.value,
+                        role: roles[index].value,
+                        address: addresses[index].value,
+                        image: images[index].value,
+                        phone: phones[index].value,
+                        fb: fbs[index].value
+                    });
+                }
+            });
+
+            if (adminData.length === 0) {
+                Swal.fire('এরর', 'অ্যাডমিনের নাম পূরণ করুন!', 'error');
+                return;
+            }
+
+            Swal.fire({ title: 'আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
             try {
-                const response = await fetch(SCRIPT_URL);
-                const data = await response.json();
-                const adm = data.admin;
-                document.getElementById('admName').value = adm.name || "";
-                document.getElementById('admDes').value = adm.des || "";
-                document.getElementById('admAddr').value = adm.addr || "";
-                document.getElementById('admImg').value = adm.img || "";
-                document.getElementById('admMob').value = adm.mob || "";
-                document.getElementById('admFB').value = adm.fb || "";
-                document.getElementById('admWA').value = adm.wa || "";
-                document.getElementById('admTG').value = adm.tg || "";
-            } catch (e) { console.log("Error loading"); }
-        };
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'updateAdmins', data: adminData })
+                });
 
-        async function saveAdminProfile() {
-            const adminData = {
-                action: "updateAdmin",
-                Name: document.getElementById('admName').value,
-                Des: document.getElementById('admDes').value,
-                Addr: document.getElementById('admAddr').value,
-                Img: document.getElementById('admImg').value,
-                Mob: document.getElementById('admMob').value,
-                FB: document.getElementById('admFB').value,
-                WA: document.getElementById('admWA').value,
-                TG: document.getElementById('admTG').value
-            };
-
-            Swal.fire({ title: 'প্রোফাইল আপডেট হচ্ছে...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); }});
-
-            try {
-                const response = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(adminData) });
-                if (response.ok) { Swal.fire('সফল!', 'অ্যাডমিন প্রোফাইল আপডেট হয়েছে।', 'success'); }
-            } catch (e) { Swal.fire('ব্যর্থ!', 'আবার চেষ্টা করুন।', 'error'); }
+                if (response.ok) {
+                    Swal.fire('সফল!', 'অ্যাডমিন প্রোফাইল আপডেট হয়েছে।', 'success');
+                }
+            } catch (error) {
+                Swal.fire('ব্যর্থ!', 'সার্ভারে কানেক্ট করা যাচ্ছে না।', 'error');
+            }
         }
     </script>
+
+    <style>
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up { animation: slideUp 0.4s ease-out; }
+    </style>
 </body>
 </html>
