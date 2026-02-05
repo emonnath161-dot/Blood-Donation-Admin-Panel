@@ -7,76 +7,70 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        body { background-color: #f4f6f9; font-family: 'SolaimanLipi', sans-serif; }
-        .memory-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px; position: relative; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .input-group label { font-size: 12px; font-weight: bold; color: #6b7280; margin-left: 4px; display: block; margin-top: 10px; }
-        .input-field { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 12px; outline: none; margin-top: 4px; transition: 0.3s; background: #f9fafb; }
-        .input-field:focus { border-color: #5851db; background: white; ring: 2px; ring-color: #5851db; }
-        .plus-btn { position: fixed; bottom: 100px; right: 25px; background: #10b981; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); cursor: pointer; z-index: 100; }
-        .delete-icon { position: absolute; top: 15px; right: 15px; color: #ef4444; cursor: pointer; font-size: 18px; }
-    </style>
 </head>
-<body class="pb-32">
-
-    <header class="p-5 bg-white shadow-sm flex items-center justify-between sticky top-0 z-50">
-        <div class="flex items-center gap-4">
-            <a href="admin-index.html" class="text-gray-600"><i class="fas fa-arrow-left text-xl"></i></a>
-            <h2 class="font-black text-gray-800 text-lg uppercase leading-none">ওয়েবসাইট সেটিংস</h2>
-        </div>
-        <button onclick="window.location.href='admin-index.html'" class="text-gray-400"><i class="fas fa-times text-2xl"></i></button>
+<body class="bg-indigo-50 pb-10">
+    <header class="p-5 bg-white shadow-sm flex items-center gap-4 sticky top-0 z-50">
+        <a href="admin-index.html" class="text-gray-600 text-xl"><i class="fas fa-arrow-left"></i></a>
+        <h1 class="font-black text-xl text-gray-800">MEMORY SETTING</h1>
     </header>
 
-    <main class="p-5">
-        <h3 class="text-center font-bold text-gray-700 mb-6 text-xl">স্মৃতিময় চিত্র ম্যানেজমেন্ট</h3>
-        
-        <div id="memory-list">
+    <div class="max-w-md mx-auto mt-8 px-4">
+        <div class="bg-white p-6 rounded-[30px] shadow-lg shadow-indigo-100 border border-indigo-50">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fas fa-images"></i>
+                </div>
+                <h2 class="font-bold text-gray-700">গ্যালারিতে নতুন ছবি যোগ করুন</h2>
+                <p class="text-xs text-gray-400 mt-1">এই ছবিগুলো মূল ওয়েবসাইটের গ্যালারিতে দেখাবে</p>
             </div>
-    </main>
 
-    <div class="plus-btn" onclick="addMemoryCard()">
-        <i class="fas fa-plus"></i>
-    </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2 uppercase ml-1">ছবির লিঙ্ক (Direct Image URL)</label>
+                    <input type="text" id="memImgUrl" placeholder="https://example.com/image.jpg" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:border-indigo-500 transition-all">
+                </div>
 
-    <div class="fixed bottom-0 left-0 right-0 p-5 bg-white border-t z-50">
-        <button onclick="saveMemoryData()" class="w-full bg-[#5851db] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-all">
-            <i class="fas fa-save"></i> সব আপডেট করুন
-        </button>
+                <button onclick="addMemory()" class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-indigo-200 active:scale-95 transition-all mt-4">
+                    গ্যালারিতে যুক্ত করুন
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <p class="text-gray-400 text-xs italic">ছবি যুক্ত করার পর সেটি স্বয়ংক্রিয়ভাবে শিটে সেভ হবে।</p>
+        </div>
     </div>
 
     <script>
-        function addMemoryCard() {
-            const container = document.getElementById('memory-list');
-            const card = document.createElement('div');
-            card.className = "memory-card animate__animated animate__fadeInUp";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwt24Fx-yTaTQCOD43UOeuVhVxTJ9ujBmCDeVJI_KcRFt9Oc82ZVix7ACo2i1ZD5pll1g/exec";
+
+        async function addMemory() {
+            const imgUrl = document.getElementById('memImgUrl').value;
             
-            card.innerHTML = `
-                <div class="delete-icon" onclick="this.parentElement.remove()">
-                    <i class="fas fa-trash-alt"></i>
-                </div>
-                <div class="input-group">
-                    <label class="text-xs font-bold text-gray-400 uppercase ml-1">স্মৃতিময় ছবির URL</label>
-                    <input type="text" class="input-field" placeholder="https://image-link.com/photo.jpg">
-                    
-                    <label class="text-xs font-bold text-gray-400 uppercase ml-1 mt-3">ছবির ক্যাপশন (ঐচ্ছিক)</label>
-                    <input type="text" class="input-field" placeholder="স্মৃতিময় মুহূর্তের নাম">
-                </div>
-            `;
-            container.appendChild(card);
-        }
+            if(!imgUrl) {
+                Swal.fire('সতর্কতা', 'ছবির লিঙ্ক প্রদান করুন।', 'warning');
+                return;
+            }
 
-        function saveMemoryData() {
-            Swal.fire({
-                title: 'আপডেট হচ্ছে...',
-                didOpen: () => { Swal.showLoading(); }
-            });
-            setTimeout(() => {
-                Swal.fire('সফল!', 'সব স্মৃতিময় চিত্র আপডেট হয়েছে।', 'success');
-            }, 1500);
-        }
+            Swal.fire({ title: 'ছবি যুক্ত হচ্ছে...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); }});
 
-        // পেজ লোড হলে একটি কার্ড ডিফল্টভাবে দেখাবে
-        window.onload = addMemoryCard;
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: "addMemory",
+                        ImageURL: imgUrl
+                    })
+                });
+
+                if (response.ok) {
+                    Swal.fire('সফল!', 'ছবিটি গ্যালারিতে যুক্ত হয়েছে।', 'success');
+                    document.getElementById('memImgUrl').value = ""; // ক্লিয়ার ইনপুট
+                }
+            } catch (error) {
+                Swal.fire('এরর!', 'আবার চেষ্টা করুন।', 'error');
+            }
+        }
     </script>
 </body>
 </html>
